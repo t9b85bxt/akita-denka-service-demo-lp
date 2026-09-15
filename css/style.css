@@ -176,6 +176,18 @@ ul {
   color: var(--c-text-on-dark);
 }
 
+.heading-sm {
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  font-weight: 800;
+  color: var(--c-green-800);
+  margin: 0.4em 0 0;
+  max-width: 20em;
+}
+
+.section-dark .heading-sm {
+  color: var(--c-text-on-dark);
+}
+
 .lead {
   font-size: clamp(0.98rem, 1.4vw, 1.08rem);
   color: var(--c-text-soft);
@@ -1323,6 +1335,190 @@ ul {
   color: var(--c-text-soft);
 }
 
+/* ---- 問い合わせフォーム ---- */
+.contact-form-wrap {
+  margin-top: clamp(22px, 3vw, 32px);
+  background: var(--c-cream);
+  border-radius: var(--radius-m);
+  padding: clamp(22px, 3.4vw, 38px);
+  color: var(--c-text);
+}
+
+.contact-form-head {
+  max-width: 640px;
+}
+
+.contact-form-head .heading-sm {
+  color: var(--c-green-800);
+}
+
+.contact-form-head .lead {
+  color: var(--c-text-soft);
+}
+
+.contact-form {
+  margin-top: clamp(20px, 3vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.form-row-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--c-green-ink);
+}
+
+.form-required,
+.form-optional {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.form-required {
+  color: #fff;
+  background: var(--c-red);
+}
+
+.form-optional {
+  color: var(--c-text-soft);
+  background: var(--c-sage);
+}
+
+.form-input {
+  width: 100%;
+  font: inherit;
+  font-size: 0.96rem;
+  color: var(--c-text);
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-s);
+  padding: 12px 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input::placeholder {
+  color: var(--c-text-soft);
+  opacity: 0.75;
+}
+
+.form-input:focus-visible {
+  outline: none;
+  border-color: var(--c-green-600);
+  box-shadow: 0 0 0 3px rgba(44, 92, 71, 0.16);
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6a60' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+  padding-right: 40px;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.7;
+}
+
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.86rem;
+  color: var(--c-text-soft);
+  cursor: pointer;
+}
+
+.form-check input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--c-green-700);
+  flex-shrink: 0;
+}
+
+.form-submit-row {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.form-submit-note {
+  font-size: 0.82rem;
+  color: var(--c-text-soft);
+}
+
+.form-submit-note a {
+  color: var(--c-green-700);
+  font-weight: 700;
+  border-bottom: 1px solid currentColor;
+}
+
+.form-success {
+  margin-top: clamp(20px, 3vw, 28px);
+  padding: clamp(20px, 3vw, 28px);
+  border-radius: var(--radius-s);
+  background: var(--c-sage);
+  text-align: center;
+}
+
+.form-success .icon {
+  width: 34px;
+  height: 34px;
+  color: var(--c-green-700);
+}
+
+.form-success-title {
+  margin: 10px 0 0;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--c-green-800);
+}
+
+.form-success-text {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  color: var(--c-text-soft);
+}
+
+@media (max-width: 640px) {
+  .form-row-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .form-submit-row .btn-call {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .site-footer {
   margin-top: clamp(28px, 4vw, 40px);
   padding-top: 26px;
@@ -1514,6 +1710,17 @@ ul {
 
   .prep-box {
     grid-template-columns: 1fr;
+  }
+
+  /* PC以外（1カラムに積み重なる幅）では、縦のスクロールが
+     間延びしないよう、これらの添え写真は非表示にする */
+  .services-photo,
+  .about-photo,
+  .flow-photo,
+  .family-photo,
+  .faq-photo,
+  .contact-photo {
+    display: none;
   }
 }
 

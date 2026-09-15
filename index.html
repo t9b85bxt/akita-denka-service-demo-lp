@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
 
@@ -39,6 +39,7 @@
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
   <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v14"/><path d="M6 12l6 6 6-6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-6.5 16-3-6.5L4 12Z"/><path d="M13.5 13.5 20 4"/></symbol>
 </svg>
 
 <!-- ============================================================
@@ -59,6 +60,7 @@
       <a href="#about">お店について</a>
       <a href="#flow">ご利用の流れ</a>
       <a href="#shop">店舗情報</a>
+      <a href="#contact-form-wrap">お問い合わせ</a>
     </nav>
 
     <div class="header-actions">
@@ -487,6 +489,85 @@
       </div>
     </div>
 
+    <!-- 補足の問い合わせ導線。電話CTAが最優先、フォームはその次点の位置づけ。 -->
+    <div class="contact-form-wrap reveal" id="contact-form-wrap">
+      <div class="contact-form-head">
+        <span class="eyebrow">またはフォームでお問い合わせ</span>
+        <h3 class="heading-sm">お電話が難しい場合は、こちらからどうぞ。</h3>
+        <p class="lead">分かる範囲でご記入いただければ大丈夫です。折り返しご連絡いたします。</p>
+      </div>
+
+      <!--
+        NOTE(開発者向け): このフォームはデモ表示用のフロントエンドのみです。
+        実運用前に、送信先（メール通知・スプレッドシート連携・フォームAPI等）の
+        バックエンド実装を追加してください。現状 submit は main.js 側で
+        preventDefault() し、画面内に完了メッセージを表示するのみで、
+        実際の送信・保存は行われません。
+      -->
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row form-row-2">
+          <div class="form-field">
+            <label class="form-label" for="cf-name">お名前<span class="form-required">必須</span></label>
+            <input class="form-input" type="text" id="cf-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="cf-tel">お電話番号<span class="form-required">必須</span></label>
+            <input class="form-input" type="tel" id="cf-tel" name="tel" autocomplete="tel" inputmode="tel" required>
+          </div>
+        </div>
+
+        <div class="form-row form-row-2">
+          <div class="form-field">
+            <label class="form-label" for="cf-email">メールアドレス<span class="form-optional">任意</span></label>
+            <input class="form-input" type="email" id="cf-email" name="email" autocomplete="email">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="cf-subject">ご相談内容<span class="form-required">必須</span></label>
+            <select class="form-input form-select" id="cf-subject" name="subject" required>
+              <option value="" disabled selected>選択してください</option>
+              <option value="家電の修理">家電の修理</option>
+              <option value="家電の販売・買い替え">家電の販売・買い替え</option>
+              <option value="取付・電気工事">取付・電気工事</option>
+              <option value="テレビアンテナ">テレビアンテナ</option>
+              <option value="その他">その他</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="cf-product">製品名・型番<span class="form-optional">任意・分かれば</span></label>
+            <input class="form-input" type="text" id="cf-product" name="product" placeholder="例：三菱電機　エアコン　霧ヶ峰">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="cf-message">お問い合わせ内容<span class="form-required">必須</span></label>
+            <textarea class="form-input form-textarea" id="cf-message" name="message" rows="4" placeholder="症状や、いつ頃からか、ご希望の対応などをご記入ください。" required></textarea>
+          </div>
+        </div>
+
+        <label class="form-check">
+          <input type="checkbox" id="cf-agree" name="agree" required>
+          <span>ご入力内容は、お問い合わせへの回答以外の目的では使用しません。同意のうえ送信します。</span>
+        </label>
+
+        <div class="form-submit-row">
+          <button class="btn btn-call" type="submit">
+            <svg class="icon"><use href="#i-send"/></svg>この内容で送信する
+          </button>
+          <span class="form-submit-note">お急ぎの場合はお電話が確実です：<a class="nowrap" href="tel:0249232511">024-923-2511</a></span>
+        </div>
+      </form>
+
+      <div class="form-success" id="formSuccess" role="status" aria-live="polite" hidden>
+        <svg class="icon"><use href="#i-doc"/></svg>
+        <p class="form-success-title">お問い合わせを受け付けました。</p>
+        <p class="form-success-text">内容を確認のうえ、担当より折り返しご連絡いたします。今しばらくお待ちください。</p>
+      </div>
+    </div>
+
     <footer class="site-footer reveal">
       <div>
         <p class="footer-brand-name">秋田電化サービス</p>
@@ -497,6 +578,7 @@
         <a href="#about">お店について</a>
         <a href="#flow">ご利用の流れ</a>
         <a href="#shop">店舗情報</a>
+        <a href="#contact-form-wrap">お問い合わせ</a>
       </nav>
     </footer>
     <p class="footer-copy">&copy; 秋田電化サービス　※本ページは営業提案用のデモサイトです。</p>
@@ -507,6 +589,6 @@
   <a href="tel:0249232511"><svg class="icon"><use href="#i-phone"/></svg><span class="nowrap">電話で相談する</span>&nbsp;&nbsp;<span class="nowrap">024-923-2511</span></a>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/main.js?v=2"></script>
 </body>
 </html>

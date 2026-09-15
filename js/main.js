@@ -30,6 +30,29 @@
     });
   }
 
+  /* ---- 問い合わせフォーム ----
+     NOTE(開発者向け): デモ表示用のため、実際の送信・保存は行わない。
+     preventDefault() 後にブラウザ標準のバリデーションだけ実行し、
+     通過したら画面内に完了メッセージを表示する。
+     実運用前に送信先（メール通知／フォームAPI等）を実装すること。 */
+  var contactForm = document.getElementById("contactForm");
+  var formSuccess = document.getElementById("formSuccess");
+
+  if (contactForm && formSuccess) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      contactForm.hidden = true;
+      formSuccess.hidden = false;
+      formSuccess.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }
+
   /* ---- リビールアニメーション ----
      各セクションのまとまり（.reveal）が画面に入ったら
      ブロックごと一括でふわっと立ち上がる。
